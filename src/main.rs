@@ -62,6 +62,7 @@ async fn main() {
     let letters = vec!["A", "B", "C", "D", "E", "F", "J", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z"];
 
     let mut score: i32 = 0;
+    let mut guesses: i32 = 0;
 
     let mut line_separator = String::new();
     for _i in 0..get_window_width(){
@@ -98,7 +99,11 @@ async fn main() {
         if !guess.trim().starts_with(&random_letter.to_lowercase()) {
             println!("The initial letter was incorrect!");
             println!("{}", "You Lost!!".red().bold());
-            println!("Score: {}", score);
+            
+            println!("\n──────────────"); 
+            println!(" Score: {}", score);
+            println!(" Guesses: {}", guesses);
+            println!("──────────────"); 
             break;
         }
 
@@ -119,25 +124,23 @@ async fn main() {
                 println!("{}", line_separator);
 
                 score += 10;
-                println!("\nScore: {}", score);
+
+                println!("\n──────────────"); 
+                println!(" Score: {}", score);
             }
             Err(_e) => { 
-                //eprintln!("Error: {}", e);
                 println!("\nThe choosen word doesn't exist!");
                 println!("{}", "You Lost!!".red().bold());
-                println!("Score: {}", score);
+                println!("\n─────────────"); 
+                println!(" Score: {}", score);
+                println!(" Guesses: {}", guesses);
+                println!("─────────────"); 
                 break;
             }
         }
 
-
-        let mut hp = String::new();
-        for _i in 0..get_window_width() {
-            hp.push('#');
-        }
-
-        println!("HP: ");
-        println!("{}", hp.green().bold());
-
+        guesses += 1;
+        println!(" Guesses: {}", guesses);
+        println!("──────────────"); 
     }
 }
